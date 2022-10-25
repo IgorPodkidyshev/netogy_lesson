@@ -34,9 +34,16 @@ batman.name = 'Брюс'
 batman.firstname = 'Уэйн'
 batman.alias = 'Бэтмен'
 batman.power = 60
+batman.character = 'Скверный'
 
 # Выводим информацию атрибутов с меткой бетмен
 print(batman.__dict__)
 
 #можно вызвать класс с атрибутами внесенными туда в "6" строке
 print(Character.__dict__)
+
+print(batman.name)
+print(batman.firstname)
+print(batman.alias)
+print("Сила", batman.power)
+print('Характер', batman.character)
