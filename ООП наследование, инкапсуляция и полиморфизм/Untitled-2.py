@@ -1,12 +1,13 @@
 class Course:
 
-    def __init__(self, name, school):
+    def __init__(self, name):
         self.name = name
-        self.school = school
         self.students = [] # Список студентов проходящих данный курс  best_student_1, best_student_2 т тд
         self.lectures = [] # Список lectures class Lecture 
         self.homeworkGrades = {} #class Student: int[] оценки студентов за домашнее задание 
         self.isFinished = False
+        self.FinishedCourse = [] # Законченные блоки
+        
 
     def GetAverageHomeworkGrade(self) -> float: #Проходиться в словаре  homeworkGrades и вычислять среднюю оценку студента в ключь добавляем сумму оценок, в значение добавлем колличетсво оценок. 
         sum = 0
@@ -15,6 +16,9 @@ class Course:
 
     def GetAverageLecturerRating(self) -> float: #Проходиться по списку лекций и считает средний рейтинг для каждого лектора
         pass
+
+    def Finishedcourse(self, student):
+        pass 
 
 class Lecture:
     def __init__(self, lectureName, lecturer):
@@ -25,9 +29,7 @@ class Lecture:
     def __str__(self):
         return self.lectureName
 
-    __repr__ = __str__
-
-          
+    __repr__ = __str__ #Плз предупреждайте о том что стр не работает с масивами без данной команды. Я проклял все пока нашел
 
 class School:
     def __init__(self):
@@ -44,13 +46,14 @@ class SchoolPerson:
         self.school = school
     
     def __str__(self):
-        return self.firstName + " " + self.lastName
+        return f'Фамилия: {self.firstName}\nИмя: {self.lastName}'
 
     __repr__ = __str__
 
 class Student(SchoolPerson):
     
     def RateLecturer(self, lecture ,rating:int): #lecturer: Lecturer, mark: Int
+        
         if rating <= 10 and rating >= 0:
             lecture.ratings[self] = rating 
         else:
@@ -60,8 +63,13 @@ class Student(SchoolPerson):
         pass
     def __getCourses(self, isFinished) -> list: #isFinished: Bool # -> corses[]
         pass
-    def GetCurrentCourses(self) -> list: # -> corses[]
+    def GetCurrentCourses(self, student) -> list: # -> corses[]
+        # 1.1 проверяем есть ли студент в блоке лекций intro
         pass
+        # 2. если есть делаем принт тмени блока
+        # 1.2 проверяем есть ли студент в блоке лекций phyton
+        # 1.3 проверяем есть ли студент в блоке лекций git
+        #  
     def GetFinishedCourses(self) -> list: # -> corses[]
         self.isFinished = True
         return
@@ -80,17 +88,17 @@ class Lecturer(Mentor):
         pass
 
 class Reviewer(Mentor):
-    def ReviewHomework(self, course, student, grade) -> None: #student: Student, course: Course #
-       if grade <= 10 or grade >= 0:
-        course.homeworkGrades[student] = [grade]
-
+    def ReviewHomework(self, lecture, student, grade:int) -> None: #student: Student, course: Course #
+        pass
     def __str__(self):
         pass    
 
+# созадем класс школы куда и поместим всех преподователей и студентов, куда то же они должны ходить=)
 school = School()
-intro_python_course = Course('Вводный модуль для студентов профессий PD и FPY', school)
-python_course = Course('Python-разработчик с нуля',school)
-git_course = Course('Git — система контроля версий', school)
+# создаем блоки лекций
+intro_python_course = Course('Вводный модуль для студентов профессий PD и FPY')
+python_course = Course('Python-разработчик с нуля')
+git_course = Course('Git — система контроля версий')
 
 
 
@@ -111,14 +119,32 @@ cool_lecturer_2 = Lecturer('Some1', 'Buddy1', school)
 cool_lecturer_3 = Lecturer('Some2', 'Buddy2', school)
 cool_lecturer_4 = Lecturer('Some3', 'Buddy3', school)
 
-#Список проверяющих
-best_reviewer = Reviewer('Best', 'Reviewer', school)
+# Список Экспертов
+reviewer = Reviewer('Checking', 'lecture', school)
 
+# закрепляем студентов за блоками лекции
+student_group_python = [best_student_1, best_student_2, best_student_3, best_student_4, best_student_5, best_student_6, best_student_7, best_student_8, best_student_9]
+student_group_git = [best_student_1, best_student_2, best_student_3, best_student_4, best_student_5, best_student_6, best_student_7, best_student_8, best_student_9]
+student_group_intro_python = [best_student_1, best_student_2, best_student_3, best_student_4, best_student_5, best_student_6, best_student_7, best_student_8, best_student_9]
 
-student_group = [best_student_1, best_student_2, best_student_3, best_student_4, best_student_5, best_student_6, best_student_7, best_student_8, best_student_9]
-python_course.students.extend(student_group)
-git_course.students.extend(student_group)
-intro_python_course.students.extend(student_group)
+started_blocks = {}
+
+for (block, student) in started_blocks:
+    if student in student_group_intro_python:
+        started_blocks[intro_python_course.name] = [student]
+    else:
+        print('student finished block')
+    if student in student_group_git:
+        started_blocks[intro_python_course.name] = student_group_intro_python
+ 
+
+student_group_python_isfinished = []
+student_group_git_isfinished = []
+student_group_intro_python_isfinished = []
+
+python_course.students.extend(student_group_python)
+git_course.students.extend(student_group_git)
+intro_python_course.students.extend(student_group_intro_python)
 
 
 
@@ -161,32 +187,28 @@ intro_python_course_lectures = [lecturePhytonOpen_1, lecturePhytonOpen_2, lectur
 python_course_lectures = [lecturePhyton_1, lecturePhyton_2, lecturePhyton_3, lecturePhyton_4, lecturePhyton_5, lecturePhyton_6, lecturePhyton_7, lecturePhyton_9, lecturePhyton_9, lecturePhyton_10, lecturePhyton_11, lecturePhyton_12, lecturePhyton_13]
 git_course_lectures = [lectureGIT_1, lectureGIT_2, lectureGIT_3, lectureGIT_4, lectureGIT_5]
 
-# 
+
+
+
+# вносим закрепленные лекции в list
 python_course.lectures.extend(python_course_lectures)
 git_course.lectures.extend(git_course_lectures)
 intro_python_course.lectures.extend(intro_python_course_lectures)
 
+# отобразим список лекций в каждом блоке
 print(intro_python_course.lectures)
 print(python_course.lectures)
 print(git_course.lectures)
 
-print(intro_python_course.students)
-print(python_course.students)
-print(git_course.students)
+# print(intro_python_course.students )
+for student in intro_python_course.students:
+    print(student)
 
 best_student_1.RateLecturer(lecturePhyton_1, 10)
 
-print(lecturePhyton_1.ratings)
 
-best_reviewer.ReviewHomework(intro_python_course, best_student_1, 10)
-best_reviewer.ReviewHomework(intro_python_course, best_student_1, 9)
-best_reviewer.ReviewHomework(intro_python_course, best_student_1, 10)
-best_reviewer.ReviewHomework(intro_python_course, best_student_1, 8)
-best_reviewer.ReviewHomework(intro_python_course, best_student_1, 9)
-best_reviewer.ReviewHomework(intro_python_course, best_student_1, 7)
 
-print(intro_python_course.homeworkGrades)
-print(python_course.homeworkGrades)
+# print(lecturePhyton_1.ratings)
 
 
 
