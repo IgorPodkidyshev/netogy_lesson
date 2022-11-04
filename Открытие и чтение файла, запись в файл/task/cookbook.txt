@@ -1,0 +1,26 @@
+Omelette
+3
+Egg | 2 | things
+Milk | 100 | milliliter
+Tomato | 2 | things
+
+Peking Duck
+4
+Duck | 1 | things
+Water | 2 | liter
+Honey | 3 | tablespoon
+Soy sauce | 60 | milliliter
+
+Baked potato
+3
+Potato | 1 | kilogram
+Garlic | 3 | clove
+Gouda cheese | 100 | gram
+
+Fajitas
+5
+Beef | 500 | gram
+Sweet pepper | 1 | things
+Pita | 2 | things
+Wine vinegar | 1 | tablespoon
+Tomato | 2 | things
