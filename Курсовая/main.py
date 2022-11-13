@@ -1,8 +1,8 @@
 import requests, json, time, os
-VK_USER_ID = 28365292
-VK_TOKEN = 'vk1.a.A4nnKCUOFbE5WOJPjVVgSld0T99z4auML4JhUBIDvHiHpG9GVMo3E82vwTQaSuMotMvmQGU8x_ufItd14PZQ8QHUE8u8HynjZRfcZKSEMjjW3I62xkZzMxZVIBKnK9OKOrSLM3yUsQx3eW4OESLHC79kEHCwf60g-luBy2-xKqBy0B9MOsgbufCNlI_eDBzh'
+VK_USER_ID = ''
+VK_TOKEN = ''
 YANDEX_URL = 'https://cloud-api.yandex.net/v1/disk/resources'
-YANDEX_TOKEN = 'y0_AgAAAABkznkYAAia-gAAAADT2nYMKTE7XmxYSLenvWuWANazdiOuZzM'
+YANDEX_TOKEN = ''
 headers = {'Content-Type': 'application/json', 
            'Accept': 'application/json', 
            'Authorization': f'OAuth {YANDEX_TOKEN}'
@@ -54,7 +54,6 @@ def GetFoto(path):
             
             os.remove('C:\\Users\\nordh\\OneDrive\\Рабочий стол\\netology\\Курсовая\\images\\%s' % filename_2) 
             
-            # move_foto = 
                     
         i += count
 
