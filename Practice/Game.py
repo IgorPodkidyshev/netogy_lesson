@@ -1,125 +1,175 @@
 import random
-class Player:
-    def __init__(self, name, gender, race, profession): # race, profession,
-        self.name = name
-        self.gender = gender
-        self.race = race
-        self.profession = profession
-        self.characteristics = [0, 0, 0, 0, 0, 0] # СИЛ, ЛОВ, ВЫН, ИНТ, МУДР, ХАР
-        self.lvl = {}
-        self.skills = {'Сила':{'Атлетика': 0, },
-        'agility': {'Акробатика': 0, 'Ловкость рук': 0, 'Скрытность': 0},
-        'intellect': {'История': 0, 'Магия': 0, 'Природа': 0, 'Ресследование': 0, 'Религия': 0},
-        'sapience': {'Выживание': 0, 'Дрессировка': 0, 'Внимание': 0, 'Медицина': 0, 'Проницательность': 0},
-        'charisma': {'Запугивание': 0, 'Исполнение': 0, 'Обман': 0, 'Убеждение': 0}}
-        self.inventory = {'Деньги': 0}
-    def __str__(self) -> str:
-        return f'\n\nИмя персонажа: {self.name}\nПол персонажа: {self.gender}\nРаса: {self.race}\nКласс: {self.profession}\n\nСила: {self.characteristics[0]}\nЛовкость: {self.characteristics[1]}\nВыносливость: {self.characteristics[2]}\nИнтелект: {self.characteristics[3]}\nМудрость: {self.characteristics[4]}\nХаризма: {self.characteristics[5]}\n'
-    def GetNewPlayer(self):
-        skill_poin_bool = False
-        number_random = []
-        for roll in range(int(6)):
-            roll = []
-            for number in range(int(4)):
-                number = random.randint(1,6)
-                roll.append(number)    
-            sort_roll = list(sorted(roll))
-            sort_roll.pop(0)        
-            number_random.append(sum(roll))        
-        if skill_poin_bool == False:
-            print(f'распределите очки навыков:\n')
-            print(f'У вас имеются следующие очки:\n {number_random}\nДавайте распределим их:')
-            for number in number_random:
-                print(f'В какую харрактеристику Вы хотите положить {number_random[0]} очков навыка:\n1-СИЛА\n2-ЛОВКОСТЬ\n3-ВЫНОСЛИВОСТЬ\n4-ИНТЕЛЕКТ\n5-МУДРОСТЬ\n6-ХАРРИЗМА\n')
-                skill_poin = input() 
-                reply = int(skill_poin) - 1
-                if self.characteristics[reply] <= 0:
-                    print(type(reply))
-                    self.characteristics[reply] = number_random[0]
-                    number_random.pop(0)
-                    print(self.characteristics)
-                else: 
-                    print('Вы уже вкладывади очки в это умения')
-            skill_poin == True       
-        # Задаем имя персонажа
-        if self.name == 'None':
-            new_name = input(f'Введите Имя: \n')
-            if 3 < len(new_name) < 25:
-                check_new_name = input(f'Вы желате схранить имя: {new_name} ?\n Введите "да или "нет"\n').lower()
-                if check_new_name == "lf" or check_new_name == 'да':
-                    self.name = new_name
-                elif check_new_name == "нет" or check_new_name == 'ytn':
-                    self.GetNewPlayer()
-                else:
-                    print('Введите "да или "нет"\n')
-                    self.GetNewPlayer()
-            else:
-                print('Имя персонажа должно быть не более 25 символов и не менее 4')
-                self.GetNewPlayer()
-        # Задаем пол персонажа
-        if self.gender == 'None':
-            new_gender = input('Выберите пол  персонажа: \n1 - Женщина\n2 - Мужчина\n')
-            if new_gender == '1':
-                self.gender = 'Женщина'
-            elif new_gender == '2':
-                self.gender = 'Мужчина'
-            else:
-              self.GetNewPlayer()
-        # Задаем рассу
-        while self.race == 'None':
-            races = {'человек': [1, 1, 1, 1, 1, 1], 'эльф': [0, 2, 0, 0, 0, 0], 'гном': [0, 0, 0, 2, 0, 0]}
-            print("Чтобы ознакомиться со списком расс введите help")
-            new_race = input('Введите рассу или help: \n').lower()
-            if new_race in races.keys():
-                print('Ваша расса :', new_race)
-                self.race = new_race
-                self.characteristics[0] += races[new_race][0]
-                self.characteristics[1] += races[new_race][1]
-                self.characteristics[2] += races[new_race][2]
-                self.characteristics[3] += races[new_race][3]
-                self.characteristics[4] += races[new_race][4]
-                self.characteristics[5] += races[new_race][5]
-            if new_race == 'help' or new_race == 'рудз':
-                for race in races.keys():
-                    print(f'{race}\n')
-        # Задать класс
-        while self.profession == 'None':
-            professions = {'воин': [2, 0, 1, 0, 0, 0], 'колдун':[0, 0, 0, 2, 1, 0], 'плут':[0, 2, 0, 0, 0, 1], 'следопыт':[0, 2, 1, 0, 0, 0]}
-            print("Чтобы ознакомиться со списком классов введите help")
-            new_profession = input('Введите класс или help: \n').lower()
-            if new_profession in professions.keys():
-                print('Ваша Класс: ', new_profession)
-                self.profession = new_profession
-                self.characteristics[0] += professions[new_profession][0]
-                self.characteristics[1] += professions[new_profession][1]
-                self.characteristics[2] += professions[new_profession][2]
-                self.characteristics[3] += professions[new_profession][3]
-                self.characteristics[4] += professions[new_profession][4]
-                self.characteristics[5] += professions[new_profession][5]
-            elif new_profession == 'help' or new_race == 'рудз':
-                for profession in professions.keys():
-                    print(f'{profession}\n') 
-
-        print(player)
-
-    def GetNewLvl(self):
-        pass
-
-player = Player('None' , 'None', 'None', 'None')
-
-player.GetNewPlayer()
-
-while True:
-    if player.name == 'None':
-        player.GetNewPlayer
-    command = input('Введите команду: ')
-    if len(command) > 1:
-        print('Иди ты нахуй со своими командами')
-    if command == 'info':
-        print(player)
-    else:
-        print('Че молчишь?')
-
-
-
+class Game:
+    def __init__ (self):
+        self.items = {} # Название предмета:[{Часть тела: str, урон: int}]
     
+    def GetDeliveryItems(self):
+        with open('Practice\items.txt', 'r', encoding='utf-8') as file_items:
+            for items in file_items:
+                self.items[items.strip('\n')] = []
+                item = file_items.readline()
+                description, dmg, defense, price = item.strip('\n').split(' | ')
+                self.items[items.strip('\n')] = [{'Часть тела': description, 'Урон': dmg, 'Защита': defense, 'Цена': price}]
+        file_items.close()
+    
+    def CheckInventory(self):
+        for items_name in player.inventory:
+            for game_items in self.items:
+                if items_name == game_items:
+                    for description in self.items[items_name]:
+                        if int(description['Урон']) == 0:
+                            if items_name in player.armor_items.keys():
+                                player.armor_items[items_name] = int(player.armor_items[items_name]) + 1
+                            else:
+                                amount = 1
+                                player.armor_items[items_name] = amount 
+                        elif int(description['Защита']) == 0:
+                            if items_name in player.weapon_items.keys():
+                                player.weapon_items[items_name] = int(player.weapon_items[items_name]) + 1
+                            else:
+                                amount = 1
+                                player.weapon_items[items_name] = amount
+        
+        def CheckArmors():
+            print('\nБроня в инвентаре:')                       
+            for armor, amount_armor in player.armor_items.items():
+                for item in self.items:
+                    if armor == item:
+                        for description in self.items[armor]:
+                            print(f'{armor} {amount_armor} шт. | Защита =', description['Защита'],f'| Цена =', description['Цена'])
+                    
+        def CheckWeapons():
+            print('\nОружие в инвентаре:')
+            for weapon, amount_weapon in player.weapon_items.items():
+                for item in self.items:
+                    if weapon == item:
+                        for description in self.items[weapon]:
+                            print(f'{weapon} {amount_weapon} шт. | Атака =', description['Урон'],f'| Цена =', description['Цена'])
+                
+        CheckArmors()
+        CheckWeapons()
+class Shop:
+    def GetSellBy(self):
+        print('Вы встречаете продавца!')
+
+class Monstr:
+    def Battle(self):
+       print('На Вас выпрыгивает монстр!') 
+
+class Dangerous:
+    def EnterDangerous(self):
+        print('Вы находите вход в подземелье')
+
+class Player:
+    lvl = {100:1, 300:2, 600:3, 1200:4}
+    def __init__(self, name, hp, gold, game) -> None:
+        self.name = name
+        self.hp = hp
+        self.gold = gold
+        self.game = game
+        self.exp = []
+        self.equipment = {'Правая рука':'', 'Левая рука':'','Голова':'','Туловище':'', 'Ноги':''}
+        self.inventory = ['Крышка от кастрюли', 'Палка', 'Ведро'] 
+        self.armor_items = {}
+        self.weapon_items = {}
+        
+    def Move(self):
+        step = random.randint(1, 50)
+        if step == 1 or step == 49:
+            shop.GetSellBy()
+        if step == 4 or step == 46:
+            monstr.Battle()
+        if step == 50:
+            dangerous.EnterDangerous()
+        else:
+            print('Ищем приключения!\n')
+            
+    def GetEquipItems(self):
+        listarmor = {}
+        listweapon = {}
+        
+                         
+        def EquipArmor():
+            game.CheckInventory()
+            if len(self.armor_items) == 0:
+                print('К сожалению у вас нет предметов для экипирования')
+            else:
+                print('\nКакой предмет вы желаете экипировать?')
+                 
+                for step,  armor in enumerate(self.armor_items):
+                    listarmor[step + 1] = armor
+                    print(step + 1, '-' ,armor)
+                command = int(input())
+                
+                if int(command) in listarmor.keys():
+                    for items in game.items.keys():
+                        if listarmor[command] in items:
+                            for description in game.items[items]:
+                                for description_equipment in self.equipment.keys():
+                                    if description['Часть тела'] == description_equipment:
+                                        if len(self.equipment[description_equipment]) == 0:
+                                            self.equipment[description_equipment] = listarmor[command]
+                                            self.inventory.remove(listarmor[command])
+                                            self.armor_items.pop(armor)
+                                            
+                                            
+                                        else:
+                                            self.inventory.append(self.equipment[description_equipment])
+                                            self.equipment[description_equipment] = listarmor[command]
+                                            self.inventory.remove(listarmor[command])
+                                             
+                                      
+        def EquipWeapon():
+            game.CheckInventory()        
+            print('\nКакой предмет вы желаете экипировать?')
+            for step,  weapon in enumerate(self.weapon_items):
+                listweapon[step + 1] = weapon
+                print(step +1, '-', weapon)
+                command = int(input())
+                if int(command) in listweapon.keys():
+                    for items in game.items.keys():
+                        if listweapon[command] in items:
+                            for description in game.items[items]:
+                                for description_equipment in self.equipment.keys():
+                                    if description['Часть тела'] == description_equipment:
+                                        if len(self.equipment[description_equipment]) == 0:
+                                            self.equipment[description_equipment] = listweapon[command]
+                                            self.inventory.remove(listweapon[command])
+                                            self.weapon_items.pop(weapon)
+                                        else:
+                                            self.inventory.append(self.equipment[description_equipment])
+                                            self.equipment[description_equipment] = listweapon[command]
+                                            self.inventory.remove(listweapon[command])
+                                            self.weapon_items.pop(weapon)
+        while True:
+            print(f'\nЭкипировка на персонаже:\n{self.equipment}')
+            command = input('\nЧто вы желаете экипировать?\n1 - Броня\n2 - Оружие\n')
+            if command == '1':
+                EquipArmor()
+            if command == '2':
+                EquipWeapon()
+                
+                
+            
+
+# Экземпляры класса
+game = Game()
+player = Player('None', 10, 3, game)
+monstr = Monstr()
+shop = Shop()
+dangerous = Dangerous()
+
+
+game.GetDeliveryItems()
+# player.GetEquipItems()
+while True:
+    game.CheckInventory()
+    print(player.armor_items)
+    command = input('Введите команду:\n').lower()
+    if command == 'i':
+        game.GetDeliveryItems()
+    if command == 'ad':
+        player.GetEquipItems()
+    else:
+        player.Move()
+        
